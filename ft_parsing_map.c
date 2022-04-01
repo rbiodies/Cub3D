@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:28:10 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 15:29:56 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/01 19:17:49 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_check_filename(char *filename)
 
 static void	ft_init(t_data *data)
 {
-	data->map->texture = (char **)ft_calloc(sizeof(char *), 4);
+	data->map->texture = (char **)ft_calloc(sizeof(char *), 5);
 	if (data->map->texture == NULL)
 		ft_putendl_error("Texture: Malloc error");
 	data->map->floor_color = -1;
@@ -115,7 +115,6 @@ void	ft_parsing_map(t_data *data, char *filename)
 		free(line);
 	}
 	close(fd);
-	data->map->texture[4] = NULL;
 	if (data->map->array == NULL)
 		ft_putendl_error("Map is empty");
 	ft_check_map(data);

@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:51:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 13:15:56 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:51:32 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,25 @@ static int	ft_color_range(char *str, int *i, int *comma)
 static int	ft_color_converting(char *str)
 {
 	int	i;
-	int	temp;
-	int	res;
 	int	comma;
+	int	temp;
+	int	count;
+	int	res;
 
 	i = 0;
-	temp = 0;
 	comma = 0;
+	temp = 0;
+	count = 0;
 	res = 0;
 	while (str[i] != '\0')
 	{
 		temp = ft_color_range(str, &i, &comma);
+		count++;
 		res = (res << 8) + temp;
 		temp = 0;
 	}
+	if (count != 3)
+		ft_putendl_error("Color has too few or too many numbers");
 	if (comma != 2)
 		ft_putendl_error("Color has too few or too many comma");
 	return (res);

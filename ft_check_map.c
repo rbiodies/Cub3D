@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:02:56 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 13:53:12 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:57:39 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	ft_check_player(t_data *data)
 		}
 		i++;
 	}
-	if (player > 1)
+	if (player != 1)
 		ft_putendl_error("Map doesn't have player or has too many players");
 }
 

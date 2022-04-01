@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:10:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 15:35:36 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/01 19:25:58 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 void	init_mlx()
 {
-	
 }
 static int	ft_key_press(int key)
 {
@@ -26,10 +25,14 @@ static int	ft_key_press(int key)
 	// 	ft_move();
 	// else if (key == S || key == DOWN)
 	// 	ft_move();
-	// else if (key == A || key == LEFT)
+	// else if (key == A)
 	// 	ft_strafe();
-	// else if (key == D || key == RIGHT)
+	// else if (key == D)
 	// 	ft_strafe();
+	// else if (key == LEFT)
+	//	
+	// else if (key == RIGHT)
+	//	
 	return (0);
 }
 

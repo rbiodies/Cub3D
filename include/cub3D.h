@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/01 15:38:45 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/01 15:37:28 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_win
 }	t_win;
 
 /*****FUNCTIONS*****/
-/*****cub3D.c*****/
+/*****main.c*****/
 void	ft_putendl_error(char *str);
 /*****ft_parsing_map.c*****/
 void	ft_parsing_map(t_data *data, char *filename);

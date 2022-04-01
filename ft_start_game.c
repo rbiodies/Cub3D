@@ -6,12 +6,14 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:10:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 16:39:38 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:25:58 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+void	init_mlx()
+{
+}
 static int	ft_key_press(int key)
 {
 	if (key == ESC)

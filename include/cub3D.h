@@ -55,6 +55,12 @@ typedef struct s_data
 	t_player	*player;
 }	t_data;
 
+typedef struct s_win
+{
+	void	*mlx;
+	void	*win;
+}	t_win;
+
 /*****FUNCTIONS*****/
 /*****main.c*****/
 void	ft_putendl_error(char *str);

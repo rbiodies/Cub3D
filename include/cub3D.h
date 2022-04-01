@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/01 12:38:22 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:32:20 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		ft_parsing_colors(t_data *data, char *line);
 /*****ft_check.c*****/
 void	ft_check_map(t_data *data);
 /*****ft_start_game.c*****/
-int		ft_start_game(t_map *map);
+int	ft_start_game(t_data *data);
 /*****ft_main_loop.c*****/
 int		ft_main_loop(t_map *map);
 

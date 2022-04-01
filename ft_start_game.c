@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:10:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/03/31 10:37:35 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:31:14 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static int	ft_program_close(void)
 	exit(EXIT_FAILURE);
 }
 
-int	ft_start_game(t_map *map)
+int	ft_start_game(t_data *data)
 {
-	map->mlx = mlx_init();
-	map->win = mlx_new_window(map->mlx, 640, 480, "cub3D");
-	mlx_loop_hook(map->mlx, &ft_main_loop, map);
-	mlx_hook(map->win, 2, 0, ft_key_press, NULL);
-	mlx_hook(map->win, 17, 0, ft_program_close, NULL);
-	mlx_loop(map->mlx);
+	data->map->mlx = mlx_init();
+	data->map->win = mlx_new_window(data->map->mlx, 640, 480, "cub3D");
+	mlx_loop_hook(data->map->mlx, &ft_main_loop, data->map);
+	mlx_hook(data->map->win, 2, 0, ft_key_press, NULL);
+	mlx_hook(data->map->win, 17, 0, ft_program_close, NULL);
+	mlx_loop(data->map->mlx);
 	return (0);
 }

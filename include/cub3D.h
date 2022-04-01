@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/01 15:32:20 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/01 15:37:28 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,14 @@ typedef struct s_data
 	t_player	*player;
 }	t_data;
 
+typedef struct s_win
+{
+	void	*mlx;
+	void	*win;
+}	t_win;
+
 /*****FUNCTIONS*****/
-/*****cub3D.c*****/
+/*****main.c*****/
 void	ft_putendl_error(char *str);
 /*****ft_parsing_map.c*****/
 void	ft_parsing_map(t_data *data, char *filename);
@@ -66,7 +72,7 @@ int		ft_parsing_colors(t_data *data, char *line);
 /*****ft_check.c*****/
 void	ft_check_map(t_data *data);
 /*****ft_start_game.c*****/
-int	ft_start_game(t_data *data);
+int		ft_start_game(t_data *data);
 /*****ft_main_loop.c*****/
 int		ft_main_loop(t_map *map);
 

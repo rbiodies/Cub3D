@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:51:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 16:51:32 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/02 18:24:32 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,21 @@ static int	ft_color_converting(char *str)
 	return (res);
 }
 
-int	ft_parsing_colors(t_data *data, char *line)
+int	ft_parsing_colors(t_map *map, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (ft_strncmp(line, "F ", 2) == 0)
 		{
-			if (data->map->floor_color != -1)
+			if (map->floor_color != -1)
 				ft_putendl_error("Floor color is existing already");
-			data->map->floor_color = ft_color_converting(line + 2);
+			map->floor_color = ft_color_converting(line + 2);
 		}
 		else
 		{
-			if (data->map->ceil_color != -1)
+			if (map->ceil_color != -1)
 				ft_putendl_error("Ceilling color is existing already");
-			data->map->ceil_color = ft_color_converting(line + 2);
+			map->ceil_color = ft_color_converting(line + 2);
 		}
 		return (1);
 	}

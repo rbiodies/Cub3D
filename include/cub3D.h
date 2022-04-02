@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/01 15:37:28 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/02 18:59:44 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	char	**texture;
+	char	**texture_path;
+	void	**texture;
 	int		floor_color;
 	int		ceil_color;
 	int		height;
@@ -55,12 +56,6 @@ typedef struct s_data
 	t_player	*player;
 }	t_data;
 
-typedef struct s_win
-{
-	void	*mlx;
-	void	*win;
-}	t_win;
-
 /*****FUNCTIONS*****/
 /*****main.c*****/
 void	ft_putendl_error(char *str);
@@ -68,12 +63,10 @@ void	ft_putendl_error(char *str);
 void	ft_parsing_map(t_data *data, char *filename);
 int		get_next_line(int fd, char **line);
 /*****ft_parse_colors.c*****/
-int		ft_parsing_colors(t_data *data, char *line);
+int		ft_parsing_colors(t_map *map, char *line);
 /*****ft_check.c*****/
 void	ft_check_map(t_data *data);
 /*****ft_start_game.c*****/
-int		ft_start_game(t_data *data);
-/*****ft_main_loop.c*****/
-int		ft_main_loop(t_map *map);
+int		ft_start_game(t_map *map);
 
 #endif

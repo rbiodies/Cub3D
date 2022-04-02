@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:28:10 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 19:17:49 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/02 18:26:32 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +40,43 @@ static int	ft_check_filename(char *filename)
 	return (height);
 }
 
-static void	ft_init(t_data *data)
+static void	ft_init(t_map *map)
 {
-	data->map->texture = (char **)ft_calloc(sizeof(char *), 5);
-	if (data->map->texture == NULL)
-		ft_putendl_error("Texture: Malloc error");
-	data->map->floor_color = -1;
-	data->map->ceil_color = -1;
-	data->map->array \
-	= (char **)ft_calloc(sizeof(char *), data->map->height + 1);
-	if (data->map->array == NULL)
+	map->texture_path = (char **)ft_calloc(sizeof(char *), 5);
+	if (map->texture_path == NULL)
+		ft_putendl_error("Texture Path: Malloc error");
+	map->floor_color = -1;
+	map->ceil_color = -1;
+	map->array \
+	= (char **)ft_calloc(sizeof(char *), map->height + 1);
+	if (map->array == NULL)
 		ft_putendl_error("Array: Malloc error");
 }
 
-static int	ft_parsing_textures(t_data *data, char *line)
+static int	ft_parsing_textures(char **path, char *line)
 {
-	int	x;
+	int	i;
 
 	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 \
 	|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
 	{
 		if (ft_strncmp(line, "NO ", 3) == 0)
-			x = 0;
+			i = 0;
 		else if (ft_strncmp(line, "SO ", 3) == 0)
-			x = 1;
+			i = 1;
 		else if (ft_strncmp(line, "WE ", 3) == 0)
-			x = 2;
+			i = 2;
 		else
-			x = 3;
-		if (data->map->texture[x] != NULL)
+			i = 3;
+		if (path[i] != NULL)
 			ft_putendl_error("This texture is existing already");
-		data->map->texture[x] = ft_strdup(line + 3);
+		path[i] = ft_strdup(line + 3);
 		return (1);
 	}
 	return (0);
 }
 
-static void	ft_get_data(t_data *data, char *line)
+static void	ft_get_data(t_map *map, char *line)
 {
 	int	i;
 	int	j;
@@ -85,18 +85,18 @@ static void	ft_get_data(t_data *data, char *line)
 	j = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 			i++;
-	if (ft_parsing_textures(data, line + i))
+	if (ft_parsing_textures(map->texture_path, line + i))
 		return ;
-	else if (ft_parsing_colors(data, line + i))
+	else if (ft_parsing_colors(map, line + i))
 		return ;
 	else if (line[i] == '1')
 	{
-		while (data->map->array[j] != NULL)
+		while (map->array[j] != NULL)
 			j++;
-		data->map->array[j] = ft_strdup(line + i);
+		map->array[j] = ft_strdup(line);
 	}
 	else if (line[i] != '\n')
-		ft_putendl_error("Unknown symbol");
+		ft_putendl_error("Unknown symbol or no wall or miss symbol");
 }
 
 void	ft_parsing_map(t_data *data, char *filename)
@@ -105,13 +105,13 @@ void	ft_parsing_map(t_data *data, char *filename)
 	char	*line;
 
 	data->map->height = ft_check_filename(filename);
-	ft_init(data);
+	ft_init(data->map);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		ft_putendl_error("Could not open map");
 	while (get_next_line(fd, &line) > 0)
 	{
-		ft_get_data(data, line);
+		ft_get_data(data->map, line);
 		free(line);
 	}
 	close(fd);

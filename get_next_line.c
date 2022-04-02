@@ -6,12 +6,11 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:07:14 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/01 19:17:21 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/02 10:49:49 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>	//	DELETE	!!!
 
 static char	*make_newbackup(char *backup)
 {

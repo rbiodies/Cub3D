@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:00:10 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/02 13:17:13 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/03 12:42:46 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ static void	ft_free(t_data *data)
 		i++;
 	}
 	free(data->map->array);
-	// i = 0;
-	// while (data->map->texture[i] != NULL)
-	// {
-	// 	free(data->map->texture[i]);
-	// 	i++;
-	// }
-	// free(data->map->texture);
 	free(data);
 }
 
@@ -56,7 +49,7 @@ int	main(int argc, char **argv)
 	if (data->player == NULL)
 		ft_putendl_error("Player: Malloc error");
 	ft_parsing_map(data, argv[1]);
-	ft_start_game(data->map);
+	ft_start_game(data->map, data->player);
 	ft_free(data);
 	return (0);
 }

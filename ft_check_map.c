@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:02:56 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/02 13:15:09 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/03 09:49:59 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_check_textures(char **path)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	while (path[i] != NULL)
@@ -23,8 +24,10 @@ static void	ft_check_textures(char **path)
 			ft_putendl_error("Texture file is missing");
 		if (ft_strcmp(".xpm", &path[i][ft_strlen(path[i]) - 4]) != 0)
 			ft_putendl_error("Texture file doesn't have xpm extension");
-		if (open(path[i], O_RDONLY) < 0)
+		fd = open(path[i], O_RDONLY);
+		if (fd < 0)
 			ft_putendl_error("Could not open the texture file");
+		close(fd);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:00:10 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/03 12:42:46 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:15:22 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	if (data->player == NULL)
 		ft_putendl_error("Player: Malloc error");
 	ft_parsing_map(data, argv[1]);
-	ft_start_game(data->map, data->player);
+	ft_start_game(data);
 	ft_free(data);
 	return (0);
 }

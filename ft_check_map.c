@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:02:56 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/03 09:49:59 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:22:42 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	ft_check_player(char **map, t_player *player)
 				count_player++;
 				player->x = j;
 				player->y = i;
+				player->dir = map[i][j];
 			}
 			j++;
 		}

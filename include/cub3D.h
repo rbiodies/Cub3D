@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/02 18:59:44 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/03 12:55:00 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 // # include <math.h>
 # include <stdio.h>	// printf
 
+/*****WINDOW_SIZES*****/
+# define WIN_WIDTH	640
+# define WIN_HEIGHT	480
+
 /*****KEYS*****/
 # define ESC	53
 # define W		13
@@ -32,6 +36,13 @@
 # define RIGHT	124
 
 /*****STRUCTURES*****/
+typedef struct s_raycasting
+{
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+}	t_raycasting;
+
 typedef struct s_player
 {
 	int	x;
@@ -48,6 +59,10 @@ typedef struct s_map
 	char	**array;
 	void	*mlx;
 	void	*win;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
 }	t_map;
 
 typedef struct s_data
@@ -67,6 +82,10 @@ int		ft_parsing_colors(t_map *map, char *line);
 /*****ft_check.c*****/
 void	ft_check_map(t_data *data);
 /*****ft_start_game.c*****/
-int		ft_start_game(t_map *map);
+int		ft_start_game(t_map *map, t_player *player);
+/*****ft_main_loop.c*****/
+int		ft_main_loop(t_map *map);
+/*****ft_key_press.c*****/
+int		ft_key_press(int key);
 
 #endif

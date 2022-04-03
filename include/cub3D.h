@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/03 12:55:00 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/03 14:36:10 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_raycasting
 	double	camerax;
 	double	raydirx;
 	double	raydiry;
+	double	deltadistx;
+	double	deltadisty;
 }	t_raycasting;
 
 typedef struct s_player

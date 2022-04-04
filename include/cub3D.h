@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/03 19:01:13 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/04 12:25:26 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libft/inc/libft.h"
 # include "../minilibx_opengl_20191021/mlx.h"
 # include <fcntl.h>	// open
-// # include <math.h>
+# include <math.h>	// fabs
 # include <stdio.h>	// printf
 
 /*****WINDOW_SIZES*****/
@@ -36,15 +36,35 @@
 # define RIGHT	124
 
 /*****STRUCTURES*****/
+/*
+	double	dirx;	// player's dirx
+	double	diry;	// player's dirx
+*/
 typedef struct s_ray
 {
-	double	dirx; // player's dirx
-	double	diry; // player's dirx
+	double	dirx;
+	double	diry;
 	double	planex;
 	double	planey;
 	double	camerax;
 	double	raydirx;
 	double	raydiry;
+	double	deltadistx;
+	double	deltadisty;
+	int		stepx;
+	int		stepy;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	posx;
+	double	posy;
+	int		hit;
+	int		side;
+	double	perpwalldist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
 }	t_ray;
 
 typedef struct s_player
@@ -54,12 +74,18 @@ typedef struct s_player
 	char	dir;
 }	t_player;
 
-typedef struct s_img
-{
-	void	*img_ptr;			// the image instance;
+/*
+	void	*img_ptr;		// the image instance;
 	int		bits_per_pixel;	// a pointer to where the bpp is written;
 	int		size_line;		// a pointer to where the line is written;
 	int		endian;			// a pointer to where the endian is written;
+*/
+typedef struct s_img
+{
+	void	*img_ptr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 	char	*mlx_data_addr;
 }	t_img;
 

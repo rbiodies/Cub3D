@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/05 16:38:00 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 20:20:39 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_img
 typedef struct s_map
 {
 	char	**texture_path;
-	void	**texture;
+	t_img	*texture;
 	int		floor_color;
 	int		ceil_color;
 	int		height;
@@ -139,6 +139,12 @@ int		ft_main_loop(t_data *data);
 int		ft_key_press(int key, t_data *data);
 /*****ft_background.c*****/
 void	ft_init_backimg(t_data *data);
+void	ft_put_pix(t_data *data, int x, int y, int color);
 void	ft_draw_corf(t_data *data, int a, int b, int color);
+
+/*****ft_init_textures.c*****/
+void	ft_init_textures(t_map *map);
+/*****ft_init_ray.c*****/
+void	ft_init_ray(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:47:35 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/05 16:21:52 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 20:00:30 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_init_backimg(t_data *data)
 	&data->img.bits_per_pixel, &data->img.size_line, &data->img.endian);
 }
 
-static void	ft_put_pix(t_data *data, int x, int y, int color)
+void	ft_put_pix(t_data *data, int x, int y, int color)
 {
 	char	*pix;
 	int		pos;

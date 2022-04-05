@@ -6,13 +6,13 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:47:35 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/05 14:48:39 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 16:21:52 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	ft_init_backimg(t_data *data)
+void	ft_init_backimg(t_data *data)
 {
 	data->img.img_ptr = mlx_new_image(data->map->mlx, WIN_WIDTH, WIN_HEIGHT);
 	data->img.mlx_data_addr = mlx_get_data_addr(data->img.img_ptr, \

@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:06:32 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 17:25:53 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 20:24:01 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 /*
 // ray.deltadistx = fabs(1 / ray.raydirx);
 // ray.deltadisty = fabs(1 / ray.raydiry);*/
-
-// static void	ft_raycasting_preset(t_ray ray, int x)
-// {
-// 	ray.camerax = 2 * x / (double)WIN_WIDTH - 1;
-// 	ray.raydirx = ray.dirx + ray.planex * ray.camerax;
-// 	ray.raydiry = ray.diry + ray.planey * ray.camerax;
-
-// 	ray.mapx = (int)ray.posx;
-// 	ray.mapy = (int)ray.posy;
-
-// 	ray.deltadistx = sqrt(1 + (ray.raydiry * ray.raydiry) \
-// 	/ (ray.raydirx * ray.raydirx));
-// 	ray.deltadisty = sqrt(1 + (ray.raydirx * ray.raydirx) \
-// 	/ (ray.raydiry * ray.raydiry));
-// }
 
 static void	ft_raycasting_preset(t_ray *ray, int x)
 {
@@ -108,34 +93,6 @@ while (hit == 0)
 	else          perpWallDist = (sideDistY - deltaDistY);
 */
 
-// static void	ft_get_ray_hit(t_ray ray, char **map)
-// {
-// 	int	hit;
-	
-// 	hit = 0;
-// 	while (hit == 0)
-// 	{
-// 		if (ray.sidedistx < ray.sidedistx)
-// 		{
-// 			ray.sidedistx += ray.deltadistx;
-// 			ray.mapx += ray.stepx;
-// 			ray.side = '0';
-// 		}
-// 		else
-// 		{
-// 			ray.sidedisty += ray.deltadisty;
-// 			ray.mapy += ray.stepy;
-// 			ray.side = '1';
-// 		}
-// 		if (map[ray.mapx][ray.mapy] == '1')
-// 			hit = 1;
-// 	}
-// 	if (ray.side == '0')
-// 		ray.perpwalldist = (ray.sidedistx - ray.deltadistx);
-// 	else
-// 		ray.perpwalldist = (ray.sidedisty - ray.deltadisty);
-// }
-
 static void	ft_get_ray_hit(t_data *data, char **map)
 {
 	int	hit;
@@ -158,6 +115,10 @@ static void	ft_get_ray_hit(t_data *data, char **map)
 		if (map[data->ray.mapy][data->ray.mapx] == '1')
 			hit = 1;
 	}
+}
+
+static void	ft_distance_of_perpendicular_ray(t_data *data)
+{
 	if (data->ray.side == 0)
 		data->ray.perpwalldist = (data->ray.sidedistx - data->ray.deltadistx);
 	else
@@ -198,7 +159,7 @@ double step = 1.0 * texHeight / lineHeight;
 // Starting texture coordinate
 double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
 */
-void	ft_get_texture_params(t_ray *ray)
+void	ft_get_stripe_params(t_ray *ray)
 {
 	ray->lineheight = (int)(WIN_HEIGHT / ray->perpwalldist);
 	ray->drawstart = -ray->lineheight / 2 + WIN_HEIGHT / 2;
@@ -207,8 +168,12 @@ void	ft_get_texture_params(t_ray *ray)
 	ray->drawend = ray->lineheight / 2 + WIN_HEIGHT / 2;
 	if (ray->drawend >= WIN_HEIGHT)
 		ray->drawend = WIN_HEIGHT - 1;
+}
+
+void	not_understand(t_ray *ray)
+{
 	ft_get_texture_side(ray);
-	if (ray->side == '0')
+	if (ray->side == 0)
 		ray->wallx = ray->posx + ray->perpwalldist * ray->diry;
 	else
 		ray->wallx = ray->posx + ray->perpwalldist * ray->dirx;
@@ -219,8 +184,8 @@ void	ft_get_texture_params(t_ray *ray)
 	if (ray->side == '1' && ray->raydiry < 0)
 		ray->texx = TEXWIDTH - ray->texx - 1;
 	ray->step = 1.0 * TEXHIGHT / ray->lineheight;
-	ray->texpos \
-	= (ray->drawstart - WIN_HEIGHT / 2 + ray->lineheight / 2) * ray->stepx;
+	ray->texpos = (ray->drawstart - WIN_HEIGHT \
+	/ 2 + ray->lineheight / 2) * ray->stepx;
 }
 
 /*
@@ -230,7 +195,7 @@ int texY = (int)texPos & (texHeight - 1);
 //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 if(side == 1) color = (color >> 1) & 8355711;
 */
-/*
+
 static void	ft_fill_verticals(t_data *data, int x)
 {
 	int	y;
@@ -243,14 +208,11 @@ static void	ft_fill_verticals(t_data *data, int x)
 		texy = (int)data->ray.texpos & (TEXHIGHT - 1);
 		data->ray.texpos += data->ray.step;
 		color = \
-		data->map->texture[data->ray.texnum][TEXHIGHT * texy * data->ray.texx];
-		if (data->ray.side == '1')
-			color = (color >> 1) & 8355711;
-		data->map->array[y][x] = color;
+		data->map->texture[data->ray.texnum].mlx_data_addr[TEXHIGHT * texy * data->ray.texx];
+		ft_put_pix(data, x, y, color);
 		y++;
 	}
 }
-*/
 
 int	ft_main_loop(t_data *data)
 {
@@ -262,8 +224,9 @@ int	ft_main_loop(t_data *data)
 		ft_raycasting_preset(&data->ray, x);
 		ft_get_side_position(&data->ray);
 		ft_get_ray_hit(data, data->map->array);
-		ft_get_texture_params(&data->ray);
-		//ft_fill_verticals(data, x);
+		ft_distance_of_perpendicular_ray(data);
+		ft_get_stripe_params(&data->ray);
+		ft_fill_verticals(data, x);
 		x++;
 	}
 	return (0);

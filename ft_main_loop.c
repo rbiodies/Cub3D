@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_main_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:06:32 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 16:01:24 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:07:05 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,23 @@ ray->raydirx = map->dirx + map->planex * ray->camerax;
 double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);
 double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 */
+/*
+// ray.deltadistx = fabs(1 / ray.raydirx);
+// ray.deltadisty = fabs(1 / ray.raydiry);*/
+
 static void	ft_raycasting_preset(t_ray ray, int x)
 {
 	ray.camerax = 2 * x / (double)WIN_WIDTH - 1;
 	ray.raydirx = ray.dirx + ray.planex * ray.camerax;
 	ray.raydiry = ray.diry + ray.planey * ray.camerax;
-	ray.deltadistx = fabs(1 / ray.raydirx);
-	ray.deltadisty = fabs(1 / ray.raydiry);
+
+	ray.mapx = (int)ray.posx;
+	ray.mapy = (int)ray.posy;
+
+	ray.deltadistx = sqrt(1 + (ray.raydiry * ray.raydiry) \
+	/ (ray.raydirx * ray.raydirx));
+	ray.deltadisty = sqrt(1 + (ray.raydirx * ray.raydirx) \
+	/ (ray.raydiry * ray.raydiry));
 }
 
 /*
@@ -82,7 +92,7 @@ while (hit == 0)
 	if(side == 0) perpWallDist = (sideDistX - deltaDistX);
 	else          perpWallDist = (sideDistY - deltaDistY);
 */
-/*
+
 static void	ft_get_ray_hit(t_ray ray, char **map)
 {
 	ray.hit = 0;
@@ -108,7 +118,7 @@ static void	ft_get_ray_hit(t_ray ray, char **map)
 	else
 		ray.perpwalldist = (ray.sidedisty - ray.deltadisty);
 }
-*/
+
 
 static void	ft_get_texture_side(t_ray ray)
 {
@@ -207,7 +217,7 @@ int	ft_main_loop(t_data *data)
 	{
 		ft_raycasting_preset(data->ray, x);
 		ft_get_side_position(data->ray);
-		// ft_get_ray_hit(data->ray, data->map->array);
+		ft_get_ray_hit(data->ray, data->map->array);
 		ft_get_texture_params(data->ray);
 		// ft_fill_verticals(data, x);
 		x++;

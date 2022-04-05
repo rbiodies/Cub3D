@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/05 12:16:23 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:26:23 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 */
 typedef struct s_ray
 {
+	double	posx;
+	double	posy;
 	double	dirx;
 	double	diry;
 	double	planex;
@@ -57,8 +59,6 @@ typedef struct s_ray
 	int		mapy;
 	double	sidedistx;
 	double	sidedisty;
-	double	posx;
-	double	posy;
 	int		hit;
 	int		side;
 	double	perpwalldist;
@@ -127,5 +127,7 @@ int		ft_start_game(t_data *data);
 int		ft_main_loop(t_data *data);
 /*****ft_key_press.c*****/
 int		ft_key_press(int key, t_data *data);
+/*****ft_background.c*****/
+void	ft_draw_corf(t_data *data, int a, int b, int color);
 
 #endif

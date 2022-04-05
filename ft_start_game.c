@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:10:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 09:48:17 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:08:19 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	ft_init_textures(t_map *map)
 			ft_putendl_error("Could not convert xpm file to image");
 		i++;
 	}
+	map->texture[i] = NULL;
 }
 
 static int	ft_program_close(void)
@@ -51,12 +52,12 @@ static void	ft_player_dir(t_data *data)
 	if (data->player->dir == 'N')
 	{
 		data->ray.dirx = 0;
-		data->ray.diry = 1;
+		data->ray.diry = -1;
 	}
 	else if (data->player->dir == 'S')
 	{
 		data->ray.dirx = 0;
-		data->ray.diry = -1;
+		data->ray.diry = 1;
 	}
 	else if (data->player->dir == 'W')
 	{
@@ -85,12 +86,12 @@ static void	ft_plane_dir(t_data *data)
 	else if (data->player->dir == 'W')
 	{
 		data->ray.planex = 0;
-		data->ray.planey = 0.66;
+		data->ray.planey = -0.66;
 	}
 	else if (data->player->dir == 'E')
 	{
 		data->ray.planex = 0;
-		data->ray.planey = -0.66;
+		data->ray.planey = 0.66;
 	}
 }
 
@@ -98,48 +99,21 @@ static void	ft_init_ray(t_data *data)
 {
 	ft_player_dir(data);
 	ft_plane_dir(data);
-}
-
-static void	ft_init_backimg(t_data *data)
-{
-	data->img.img_ptr = mlx_new_image(data->map->mlx, WIN_WIDTH, WIN_HEIGHT);
-	data->img.mlx_data_addr = mlx_get_data_addr(data->img.img_ptr, \
-	&data->img.bits_per_pixel, &data->img.size_line, &data->img.endian);
-}
-
-static void	ft_put_pix(t_data *data, int x, int y, int color)
-{
-	char	*pix;
-	int		pos;
-
-	pos = (y * data->img.size_line + x * (data->img.bits_per_pixel / 8));
-	pix = data->img.mlx_data_addr + pos;
-	*(unsigned int *)pix = color;
-}
-
-static void	ft_draw_corf(t_data *data, int a, int b, int color)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < WIN_WIDTH)
-	{
-		y = a;
-		while (y < b)
-		{
-			ft_put_pix(data, x, y, color);
-			y++;
-		}
-		x++;
-	}
+	data->ray.posx = (double)data->player->x;
+	data->ray.posy = (double)data->player->y;
+	// data->ray.raydirx = 0;
+	// data->ray.raydiry = 0;
+	// data->ray.deltadistx = 0;
+	// data->ray.deltadisty = 0;
+	// data->ray.sidedistx = 0;
+	// data->ray.sidedisty = 0;
 }
 
 static int	ft_drawer(t_data *data)
 {
 	ft_init_backimg(data);
 	ft_draw_corf(data, 0, WIN_HEIGHT / 2, data->map->ceil_color);
-	ft_draw_corf(data, WIN_HEIGHT / 2, WIN_HEIGHT, data->map->floor_color);
+	ft_draw_corf(data, WIN_HEIGHT / 2, WIN_HEIGHT, data->map->floor_color);	
 	mlx_put_image_to_window(\
 	data->map->mlx, data->map->win, data->img.img_ptr, 0, 0);
 	mlx_destroy_image(data->map->mlx, data->img.img_ptr);

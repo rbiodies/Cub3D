@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/03 14:36:10 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:16:23 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libft/inc/libft.h"
 # include "../minilibx_opengl_20191021/mlx.h"
 # include <fcntl.h>	// open
-// # include <math.h>
+# include <math.h>	// fabs
 # include <stdio.h>	// printf
 
 /*****WINDOW_SIZES*****/
@@ -36,20 +36,60 @@
 # define RIGHT	124
 
 /*****STRUCTURES*****/
-typedef struct s_raycasting
+/*
+	double	dirx;	// player's dirx
+	double	diry;	// player's dirx
+*/
+typedef struct s_ray
 {
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
 	double	camerax;
 	double	raydirx;
 	double	raydiry;
 	double	deltadistx;
 	double	deltadisty;
-}	t_raycasting;
+	int		stepx;
+	int		stepy;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	posx;
+	double	posy;
+	int		hit;
+	int		side;
+	double	perpwalldist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	double	movespeed;
+	double	rotspeed;
+}	t_ray;
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	dir;
 }	t_player;
+
+/*
+	void	*img_ptr;		// the image instance;
+	int		bits_per_pixel;	// a pointer to where the bpp is written;
+	int		size_line;		// a pointer to where the line is written;
+	int		endian;			// a pointer to where the endian is written;
+*/
+typedef struct s_img
+{
+	void	*img_ptr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+	char	*mlx_data_addr;
+}	t_img;
 
 typedef struct s_map
 {
@@ -61,16 +101,14 @@ typedef struct s_map
 	char	**array;
 	void	*mlx;
 	void	*win;
-	double	dirx;
-	double	diry;
-	double	planex;
-	double	planey;
 }	t_map;
 
 typedef struct s_data
 {
 	t_map		*map;
 	t_player	*player;
+	t_ray		ray;
+	t_img		img;
 }	t_data;
 
 /*****FUNCTIONS*****/
@@ -84,10 +122,10 @@ int		ft_parsing_colors(t_map *map, char *line);
 /*****ft_check.c*****/
 void	ft_check_map(t_data *data);
 /*****ft_start_game.c*****/
-int		ft_start_game(t_map *map, t_player *player);
+int		ft_start_game(t_data *data);
 /*****ft_main_loop.c*****/
-int		ft_main_loop(t_map *map);
+int		ft_main_loop(t_data *data);
 /*****ft_key_press.c*****/
-int		ft_key_press(int key);
+int		ft_key_press(int key, t_data *data);
 
 #endif

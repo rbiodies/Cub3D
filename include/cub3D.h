@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/05 16:22:07 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 16:38:00 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_ray
 	int		mapy;
 	double	sidedistx;
 	double	sidedisty;
-	int		hit;
 	int		side;
 	double	perpwalldist;
 	int		lineheight;

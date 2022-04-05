@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/04 12:25:26 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:16:23 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct s_ray
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
+	double	movespeed;
+	double	rotspeed;
 }	t_ray;
 
 typedef struct s_player
@@ -124,6 +126,6 @@ int		ft_start_game(t_data *data);
 /*****ft_main_loop.c*****/
 int		ft_main_loop(t_data *data);
 /*****ft_key_press.c*****/
-int		ft_key_press(int key);
+int		ft_key_press(int key, t_data *data);
 
 #endif

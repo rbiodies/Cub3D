@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:10:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/04 11:36:29 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 09:48:17 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static int	ft_drawer(t_data *data)
 static void	ft_move(t_data *data)
 {
 	mlx_loop_hook(data->map->mlx, ft_main_loop, data);
-	mlx_hook(data->map->win, 2, 0, ft_key_press, NULL);
+	mlx_hook(data->map->win, 2, 0, ft_key_press, data);
 	mlx_hook(data->map->win, 17, 0, ft_program_close, NULL);
 	mlx_loop(data->map->mlx);
 }

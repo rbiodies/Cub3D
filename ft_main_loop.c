@@ -6,7 +6,7 @@
 /*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:06:32 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/04 12:55:18 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:54:25 by rbiodies         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 ray->camerax = 2 * x / (double)WIN_WIDTH - 1;
 // x-coordinate in camera space
 ray->raydirx = map->dirx + map->planex * ray->camerax;
+//length of ray from one x or y-side to next x or y-side
+double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);
+double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 */
-static void	ft_raycasting_preset(t_ray ray, int x)
+static void	ft_raycasting_preset(t_ray ray, int i)
 {
-	ray.camerax = 2 * x / (double)WIN_WIDTH - 1;
+	ray.camerax = 2 * i / (double)WIN_WIDTH - 1;
 	ray.raydirx = ray.dirx + ray.planex * ray.camerax;
 	ray.raydiry = ray.diry + ray.planey * ray.camerax;
 	ray.deltadistx = fabs(1 / ray.raydirx);
@@ -35,10 +38,6 @@ int mapY = int(posY);
 //length of ray from current position to next x or y-side
 double sideDistX;
 double sideDistY;
-
-//length of ray from one x or y-side to next x or y-side
-double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);
-double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 
 //what direction to step in x or y-direction (either +1 or -1)
 int stepX;
@@ -69,6 +68,8 @@ static void	ft_get_side_position(t_ray ray)
 }
 
 /*
+int hit = 0; //was there a wall hit?
+int side; //was a NS or a EW wall hit?
 //perform DDA
 while (hit == 0)
 {
@@ -129,16 +130,16 @@ static void	ft_get_texture_params(t_ray ray)
 
 int	ft_main_loop(t_data *data)
 {
-	int	x;
+	int	i;
 
-	x = 0;
-	while (x < WIN_WIDTH)
+	i = 0;
+	while (i < WIN_WIDTH)
 	{
-		ft_raycasting_preset(data->ray, x);
+		ft_raycasting_preset(data->ray, i);
 		ft_get_side_position(data->ray);
 		// ft_get_ray_hit(data->ray, data->map->array);
 		ft_get_texture_params(data->ray);
-		x++;
+		i++;
 	}
 	return (0);
 }

@@ -24,9 +24,10 @@ double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 /*
 // ray.deltadistx = fabs(1 / ray.raydirx);
 // ray.deltadisty = fabs(1 / ray.raydiry);*/
-static void	ft_raycasting_preset(t_ray ray, int i)
+
+static void	ft_raycasting_preset(t_ray ray, int x)
 {
-	ray.camerax = 2 * i / (double)WIN_WIDTH - 1;
+	ray.camerax = 2 * x / (double)WIN_WIDTH - 1;
 	ray.raydirx = ray.dirx + ray.planex * ray.camerax;
 	ray.raydiry = ray.diry + ray.planey * ray.camerax;
 
@@ -119,12 +120,39 @@ static void	ft_get_ray_hit(t_ray ray, char **map)
 }
 
 
+static void	ft_get_texture_side(t_ray ray)
+{
+	if (ray.side == '1' && ray.stepy < 0)
+		ray.texnum = 0;
+	else if (ray.side == '1' && ray.stepy > 0)
+		ray.texnum = 1;
+	else if (ray.side == '0' && ray.stepy > 0)
+		ray.texnum = 2;
+	else if (ray.side == '0' && ray.stepy < 0)
+		ray.texnum = 3;
+}
+
 /*
 //Calculate height of line to draw on screen
 int lineHeight = (int)(h / perpWallDist);
 
 //calculate lowest and highest pixel to fill in current stripe
 int drawStart = -lineHeight / 2 + h / 2;
+
+//calculate value of wallX
+double wallX; //where exactly the wall was hit
+
+The C library function double floor(double x) 
+returns the largest integer value less than or equal to x
+
+ //x coordinate on the texture
+int texX = int(wallX * double(texWidth));
+
+// How much to increase the texture coordinate per screen pixel
+double step = 1.0 * texHeight / lineHeight;
+
+// Starting texture coordinate
+double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
 */
 static void	ft_get_texture_params(t_ray ray)
 {
@@ -135,20 +163,64 @@ static void	ft_get_texture_params(t_ray ray)
 	ray.drawend = ray.lineheight / 2 + WIN_HEIGHT / 2;
 	if (ray.drawend >= WIN_HEIGHT)
 		ray.drawend = WIN_HEIGHT - 1;
+	ft_get_texture_side(ray);
+	if (ray.side == '0')
+		ray.wallx = ray.posx + ray.perpwalldist * ray.diry;
+	else
+		ray.wallx = ray.posx + ray.perpwalldist * ray.dirx;
+	ray.wallx -= floor(ray.wallx);
+	ray.texx = (int)(ray.wallx * (double)TEXWIDTH);
+	if (ray.side == '0' && ray.dirx > 0)
+		ray.texx = TEXWIDTH - ray.texx - 1;
+	if (ray.side == '1' && ray.raydiry < 0)
+		ray.texx = TEXWIDTH - ray.texx - 1;
+	ray.step = 1.0 * TEXHIGHT / ray.lineheight;
+	ray.texpos \
+	= (ray.drawstart - WIN_HEIGHT / 2 + ray.lineheight / 2) * ray.stepx;
 }
+
+/*
+// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+int texY = (int)texPos & (texHeight - 1);
+...
+//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+if(side == 1) color = (color >> 1) & 8355711;
+*/
+/*
+static void	ft_fill_verticals(t_data *data, int x)
+{
+	int	y;
+	int	texy;
+	int	color;
+
+	y = data->ray.drawstart;
+	while (y < data->ray.drawend)
+	{
+		texy = (int)data->ray.texpos & (TEXHIGHT - 1);
+		data->ray.texpos += data->ray.step;
+		color = \
+		data->map->texture[data->ray.texnum][TEXHIGHT * texy * data->ray.texx];
+		if (data->ray.side == '1')
+			color = (color >> 1) & 8355711;
+		data->map->array[y][x] = color;
+		y++;
+	}
+}
+*/
 
 int	ft_main_loop(t_data *data)
 {
-	int	i;
+	int	x;
 
-	i = 0;
-	while (i < WIN_WIDTH)
+	x = 0;
+	while (x < WIN_WIDTH)
 	{
-		ft_raycasting_preset(data->ray, i);
+		ft_raycasting_preset(data->ray, x);
 		ft_get_side_position(data->ray);
 		ft_get_ray_hit(data->ray, data->map->array);
 		ft_get_texture_params(data->ray);
-		i++;
+		// ft_fill_verticals(data, x);
+		x++;
 	}
 	return (0);
 }

@@ -21,6 +21,8 @@
 # include <stdio.h>	// printf
 
 /*****WINDOW_SIZES*****/
+# define TEXWIDTH	64
+# define TEXHIGHT	64
 # define WIN_WIDTH	640
 # define WIN_HEIGHT	480
 
@@ -37,8 +39,12 @@
 
 /*****STRUCTURES*****/
 /*
-	double	dirx;	// player's dirx
-	double	diry;	// player's dirx
+	double	deltadistx;	// the distance the ray has to travel to go from 1 x-side to the next x-side
+	double	deltadisty;	// the distance the ray has to travel to go from 1 y-side to the next y-side
+	int		mapx;		// the current square of the map the ray is in (the coordinates of that square)
+	int		mapy;		// the current square of the map the ray is in (the coordinates of that square)
+	double	sidedistx;	// the distance the ray has to travel from its start position to the first x-side
+	double	sidedisty;	// the distance the ray has to travel from its start position to the first y-side
 */
 typedef struct s_ray
 {
@@ -67,6 +73,11 @@ typedef struct s_ray
 	int		drawend;
 	double	movespeed;
 	double	rotspeed;
+	int		texnum;
+	double	wallx;
+	int		texx;
+	double	step;
+	double	texpos;
 }	t_ray;
 
 typedef struct s_player

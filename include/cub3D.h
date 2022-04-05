@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/05 15:26:23 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 16:22:07 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int		ft_main_loop(t_data *data);
 /*****ft_key_press.c*****/
 int		ft_key_press(int key, t_data *data);
 /*****ft_background.c*****/
+void	ft_init_backimg(t_data *data);
 void	ft_draw_corf(t_data *data, int a, int b, int color);
 
 #endif

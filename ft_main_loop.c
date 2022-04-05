@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:06:32 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 16:07:05 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 17:09:06 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,34 @@ double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 // ray.deltadistx = fabs(1 / ray.raydirx);
 // ray.deltadisty = fabs(1 / ray.raydiry);*/
 
-static void	ft_raycasting_preset(t_ray ray, int x)
+// static void	ft_raycasting_preset(t_ray ray, int x)
+// {
+// 	ray.camerax = 2 * x / (double)WIN_WIDTH - 1;
+// 	ray.raydirx = ray.dirx + ray.planex * ray.camerax;
+// 	ray.raydiry = ray.diry + ray.planey * ray.camerax;
+
+// 	ray.mapx = (int)ray.posx;
+// 	ray.mapy = (int)ray.posy;
+
+// 	ray.deltadistx = sqrt(1 + (ray.raydiry * ray.raydiry) \
+// 	/ (ray.raydirx * ray.raydirx));
+// 	ray.deltadisty = sqrt(1 + (ray.raydirx * ray.raydirx) \
+// 	/ (ray.raydiry * ray.raydiry));
+// }
+
+static void	ft_raycasting_preset(t_ray *ray, int x)
 {
-	ray.camerax = 2 * x / (double)WIN_WIDTH - 1;
-	ray.raydirx = ray.dirx + ray.planex * ray.camerax;
-	ray.raydiry = ray.diry + ray.planey * ray.camerax;
+	ray->camerax = 2 * x / (double)WIN_WIDTH - 1;
+	ray->raydirx = ray->dirx + ray->planex * ray->camerax;
+	ray->raydiry = ray->diry + ray->planey * ray->camerax;
 
-	ray.mapx = (int)ray.posx;
-	ray.mapy = (int)ray.posy;
+	ray->mapx = (int)ray->posx;
+	ray->mapy = (int)ray->posy;
 
-	ray.deltadistx = sqrt(1 + (ray.raydiry * ray.raydiry) \
-	/ (ray.raydirx * ray.raydirx));
-	ray.deltadisty = sqrt(1 + (ray.raydirx * ray.raydirx) \
-	/ (ray.raydiry * ray.raydiry));
+	ray->deltadistx = sqrt(1 + (ray->raydiry * ray->raydiry) \
+	/ (ray->raydirx * ray->raydirx));
+	ray->deltadisty = sqrt(1 + (ray->raydirx * ray->raydirx) \
+	/ (ray->raydiry * ray->raydiry));
 }
 
 /*
@@ -53,27 +68,27 @@ double sideDistY;
 int stepX;
 int stepY;
 */
-static void	ft_get_side_position(t_ray ray)
+static void	ft_get_side_position(t_ray *ray)
 {
-	if (ray.raydirx < 0)
+	if (ray->raydirx < 0)
 	{
-		ray.stepx = -1;
-		ray.sidedistx = (ray.posx - ray.mapx) * ray.deltadistx;
+		ray->stepx = -1;
+		ray->sidedistx = (ray->posx - ray->mapx) * ray->deltadistx;
 	}
 	else
 	{
-		ray.stepx = 1;
-		ray.sidedistx = (ray.mapx + 1.0 - ray.posx) * ray.deltadistx;
+		ray->stepx = 1;
+		ray->sidedistx = (ray->mapx + 1.0 - ray->posx) * ray->deltadistx;
 	}
-	if (ray.raydiry < 0)
+	if (ray->raydiry < 0)
 	{
-		ray.stepy = -1;
-		ray.sidedisty = (ray.posy - ray.mapy) * ray.deltadisty;
+		ray->stepy = -1;
+		ray->sidedisty = (ray->posy - ray->mapy) * ray->deltadisty;
 	}
 	else
 	{
-		ray.stepy = 1;
-		ray.sidedisty = (ray.mapy + 1.0 - ray.posy) * ray.deltadisty;
+		ray->stepy = 1;
+		ray->sidedisty = (ray->mapy + 1.0 - ray->posy) * ray->deltadisty;
 	}
 }
 
@@ -93,32 +108,61 @@ while (hit == 0)
 	else          perpWallDist = (sideDistY - deltaDistY);
 */
 
-static void	ft_get_ray_hit(t_ray ray, char **map)
+// static void	ft_get_ray_hit(t_ray ray, char **map)
+// {
+// 	int	hit;
+	
+// 	hit = 0;
+// 	while (hit == 0)
+// 	{
+// 		if (ray.sidedistx < ray.sidedistx)
+// 		{
+// 			ray.sidedistx += ray.deltadistx;
+// 			ray.mapx += ray.stepx;
+// 			ray.side = '0';
+// 		}
+// 		else
+// 		{
+// 			ray.sidedisty += ray.deltadisty;
+// 			ray.mapy += ray.stepy;
+// 			ray.side = '1';
+// 		}
+// 		if (map[ray.mapx][ray.mapy] == '1')
+// 			hit = 1;
+// 	}
+// 	if (ray.side == '0')
+// 		ray.perpwalldist = (ray.sidedistx - ray.deltadistx);
+// 	else
+// 		ray.perpwalldist = (ray.sidedisty - ray.deltadisty);
+// }
+
+static void	ft_get_ray_hit(t_data *data, char **map)
 {
-	ray.hit = 0;
-	while (ray.hit == 0)
+	int	hit;
+	
+	hit = 0;
+	while (hit == 0)
 	{
-		if (ray.sidedistx < ray.sidedistx)
+		if (data->ray.sidedistx < data->ray.sidedistx)
 		{
-			ray.sidedistx += ray.deltadistx;
-			ray.mapx += ray.stepx;
-			ray.side = '0';
+			data->ray.sidedistx += data->ray.deltadistx;
+			data->ray.mapx += data->ray.stepx;
+			data->ray.side = 0;
 		}
 		else
 		{
-			ray.sidedisty += ray.deltadisty;
-			ray.mapy += ray.stepy;
-			ray.side = '1';
+			data->ray.sidedisty += data->ray.deltadisty;
+			data->ray.mapy += data->ray.stepy;
+			data->ray.side = 1;
 		}
-		if (map[ray.mapx][ray.mapy] == '1')
-			ray.hit = 1;
+		if (map[data->ray.mapy][data->ray.mapx] == '1')
+			hit = 1;
 	}
-	if (ray.side == '0')
-		ray.perpwalldist = (ray.sidedistx - ray.deltadistx);
-	else
-		ray.perpwalldist = (ray.sidedisty - ray.deltadisty);
+	// if (data->ray.side == 0)
+	// 	data->ray.perpwalldist = (data->ray.sidedistx - data->ray.deltadistx);
+	// else
+	// 	data->ray.perpwalldist = (data->ray.sidedisty - data->ray.deltadisty);
 }
-
 
 static void	ft_get_texture_side(t_ray ray)
 {
@@ -154,7 +198,7 @@ double step = 1.0 * texHeight / lineHeight;
 // Starting texture coordinate
 double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
 */
-static void	ft_get_texture_params(t_ray ray)
+void	ft_get_texture_params(t_ray ray)
 {
 	ray.lineheight = (int)(WIN_HEIGHT / ray.perpwalldist);
 	ray.drawstart = -ray.lineheight / 2 + WIN_HEIGHT / 2;
@@ -215,10 +259,11 @@ int	ft_main_loop(t_data *data)
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		ft_raycasting_preset(data->ray, x);
-		ft_get_side_position(data->ray);
-		ft_get_ray_hit(data->ray, data->map->array);
-		ft_get_texture_params(data->ray);
+		ft_raycasting_preset(&data->ray, x);
+		//printf("%f\n", data->ray.camerax);
+		ft_get_side_position(&data->ray);
+		ft_get_ray_hit(data, data->map->array);
+		//ft_get_texture_params(data->ray);
 		// ft_fill_verticals(data, x);
 		x++;
 	}

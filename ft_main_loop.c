@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:06:32 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 17:09:06 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/05 17:25:53 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,22 +158,22 @@ static void	ft_get_ray_hit(t_data *data, char **map)
 		if (map[data->ray.mapy][data->ray.mapx] == '1')
 			hit = 1;
 	}
-	// if (data->ray.side == 0)
-	// 	data->ray.perpwalldist = (data->ray.sidedistx - data->ray.deltadistx);
-	// else
-	// 	data->ray.perpwalldist = (data->ray.sidedisty - data->ray.deltadisty);
+	if (data->ray.side == 0)
+		data->ray.perpwalldist = (data->ray.sidedistx - data->ray.deltadistx);
+	else
+		data->ray.perpwalldist = (data->ray.sidedisty - data->ray.deltadisty);
 }
 
-static void	ft_get_texture_side(t_ray ray)
+static void	ft_get_texture_side(t_ray *ray)
 {
-	if (ray.side == '1' && ray.stepy < 0)
-		ray.texnum = 0;
-	else if (ray.side == '1' && ray.stepy > 0)
-		ray.texnum = 1;
-	else if (ray.side == '0' && ray.stepy > 0)
-		ray.texnum = 2;
-	else if (ray.side == '0' && ray.stepy < 0)
-		ray.texnum = 3;
+	if (ray->side == '1' && ray->stepy < 0)
+		ray->texnum = 0;
+	else if (ray->side == '1' && ray->stepy > 0)
+		ray->texnum = 1;
+	else if (ray->side == '0' && ray->stepy > 0)
+		ray->texnum = 2;
+	else if (ray->side == '0' && ray->stepy < 0)
+		ray->texnum = 3;
 }
 
 /*
@@ -198,29 +198,29 @@ double step = 1.0 * texHeight / lineHeight;
 // Starting texture coordinate
 double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
 */
-void	ft_get_texture_params(t_ray ray)
+void	ft_get_texture_params(t_ray *ray)
 {
-	ray.lineheight = (int)(WIN_HEIGHT / ray.perpwalldist);
-	ray.drawstart = -ray.lineheight / 2 + WIN_HEIGHT / 2;
-	if (ray.drawstart < 0)
-		ray.drawstart = 0;
-	ray.drawend = ray.lineheight / 2 + WIN_HEIGHT / 2;
-	if (ray.drawend >= WIN_HEIGHT)
-		ray.drawend = WIN_HEIGHT - 1;
+	ray->lineheight = (int)(WIN_HEIGHT / ray->perpwalldist);
+	ray->drawstart = -ray->lineheight / 2 + WIN_HEIGHT / 2;
+	if (ray->drawstart < 0)
+		ray->drawstart = 0;
+	ray->drawend = ray->lineheight / 2 + WIN_HEIGHT / 2;
+	if (ray->drawend >= WIN_HEIGHT)
+		ray->drawend = WIN_HEIGHT - 1;
 	ft_get_texture_side(ray);
-	if (ray.side == '0')
-		ray.wallx = ray.posx + ray.perpwalldist * ray.diry;
+	if (ray->side == '0')
+		ray->wallx = ray->posx + ray->perpwalldist * ray->diry;
 	else
-		ray.wallx = ray.posx + ray.perpwalldist * ray.dirx;
-	ray.wallx -= floor(ray.wallx);
-	ray.texx = (int)(ray.wallx * (double)TEXWIDTH);
-	if (ray.side == '0' && ray.dirx > 0)
-		ray.texx = TEXWIDTH - ray.texx - 1;
-	if (ray.side == '1' && ray.raydiry < 0)
-		ray.texx = TEXWIDTH - ray.texx - 1;
-	ray.step = 1.0 * TEXHIGHT / ray.lineheight;
-	ray.texpos \
-	= (ray.drawstart - WIN_HEIGHT / 2 + ray.lineheight / 2) * ray.stepx;
+		ray->wallx = ray->posx + ray->perpwalldist * ray->dirx;
+	ray->wallx -= floor(ray->wallx);
+	ray->texx = (int)(ray->wallx * (double)TEXWIDTH);
+	if (ray->side == '0' && ray->dirx > 0)
+		ray->texx = TEXWIDTH - ray->texx - 1;
+	if (ray->side == '1' && ray->raydiry < 0)
+		ray->texx = TEXWIDTH - ray->texx - 1;
+	ray->step = 1.0 * TEXHIGHT / ray->lineheight;
+	ray->texpos \
+	= (ray->drawstart - WIN_HEIGHT / 2 + ray->lineheight / 2) * ray->stepx;
 }
 
 /*
@@ -260,11 +260,10 @@ int	ft_main_loop(t_data *data)
 	while (x < WIN_WIDTH)
 	{
 		ft_raycasting_preset(&data->ray, x);
-		//printf("%f\n", data->ray.camerax);
 		ft_get_side_position(&data->ray);
 		ft_get_ray_hit(data, data->map->array);
-		//ft_get_texture_params(data->ray);
-		// ft_fill_verticals(data, x);
+		ft_get_texture_params(&data->ray);
+		//ft_fill_verticals(data, x);
 		x++;
 	}
 	return (0);

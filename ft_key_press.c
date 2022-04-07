@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_key_press.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 12:40:17 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 10:30:55 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/07 19:09:33 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,72 +18,91 @@ static void	ft_key_esc(void)
 	exit(EXIT_SUCCESS);
 }
 
-/*
-rotate to the left
-both camera direction and camera plane must be rotated
-rotate to the right
-both camera direction and camera plane must be rotated
-*/
-static void	ft_key_press_2(int key, t_ray ray)
+void	ft_move_round(int key, t_ray *ray)
 {
 	double	olddirx;
 	double	oldplanex;
 
-	olddirx = ray.dirx;
-	oldplanex = ray.planex;
-	if (key == A || key == LEFT)
+	olddirx = ray->dirx;
+	oldplanex = ray->planex;
+	if (key == LEFT)
 	{
-		ray.dirx = ray.dirx * cos(ray.rotspeed) - ray.diry * sin(ray.rotspeed);
-		ray.diry = olddirx * sin(ray.rotspeed) + ray.diry * cos(ray.rotspeed);
-		ray.planex \
-		= ray.planex * cos(ray.rotspeed) - ray.planey * sin(ray.rotspeed);
-		ray.planey \
-		= oldplanex * sin(ray.rotspeed) + ray.planey * cos(ray.rotspeed);
+		ray->dirx = ray->dirx * cos(ray->rot) - ray->diry * sin(ray->rot);
+		ray->diry = olddirx * sin(ray->rot) + ray->diry * cos(ray->rot);
+		ray->planex \
+		= ray->planex * cos(ray->rot) - ray->planey * sin(ray->rot);
+		ray->planey \
+		= oldplanex * sin(ray->rot) + ray->planey * cos(ray->rot);
 	}
-	else if (key == D || key == RIGHT)
+	else if (key == RIGHT)
 	{
-		ray.dirx \
-		= ray.dirx * cos(-ray.rotspeed) - ray.diry * sin(-ray.rotspeed);
-		ray.diry = olddirx * sin(-ray.rotspeed) + ray.diry * cos(-ray.rotspeed);
-		ray.planex \
-		= ray.planex * cos(-ray.rotspeed) - ray.planey * sin(-ray.rotspeed);
-		ray.planey \
-		= oldplanex * sin(-ray.rotspeed) + ray.planey * cos(-ray.rotspeed);
+		ray->dirx \
+		= ray->dirx * cos(-ray->rot) - ray->diry * sin(-ray->rot);
+		ray->diry = olddirx * sin(-ray->rot) + ray->diry * cos(-ray->rot);
+		ray->planex \
+		= ray->planex * cos(-ray->rot) - ray->planey * sin(-ray->rot);
+		ray->planey \
+		= oldplanex * sin(-ray->rot) + ray->planey * cos(-ray->rot);
 	}
 }
 
-/*
-speed modifiers
-double moveSpeed //the constant value is in squares/second
-double rotSpeed //the constant value is in radians/second
-move forward if no wall in front of you
-move backwards if no wall behind you
-*/
+int	ft_move_rl(int key, t_data *data)
+{
+	if (key == A)
+	{
+		if (data->map->array[(int)(data->ray.posy)][(int)(data->ray.posx \
+		- data->ray.planex * data->ray.move)] != '1')
+			data->ray.posx -= data->ray.planex * data->ray.move;
+		if (data->map->array[(int)(data->ray.posy \
+		+ data->ray.planey * data->ray.move)][(int)(data->ray.posx)] != '1')
+			data->ray.posy += data->ray.planey * data->ray.move;
+	}
+	else if (key == D)
+	{
+		if (data->map->array[(int)(data->ray.posy)][(int)(data->ray.posx \
+		+ data->ray.planex * data->ray.move)] != '1')
+			data->ray.posx += data->ray.planex * data->ray.move;
+		if (data->map->array[(int)(data->ray.posy \
+		- data->ray.planey * data->ray.move)][(int)(data->ray.posx)] != '1')
+			data->ray.posy += data->ray.planey * data->ray.move;
+	}
+	return (0);
+}
+
+int	ft_move_uw(int key, t_data *data)
+{
+	if (key == W)
+	{
+		if (data->map->array[(int)(data->ray.posy)][(int)(data->ray.posx \
+		+ data->ray.dirx * data->ray.move)] != '1')
+			data->ray.posx += data->ray.dirx * data->ray.move;
+		if (data->map->array[(int)(data->ray.posy \
+		+ data->ray.diry * data->ray.move)][(int)(data->ray.posx)] != '1')
+			data->ray.posy += data->ray.diry * data->ray.move;
+	}
+	else if (key == S)
+	{
+		if (data->map->array[(int)(data->ray.posy)][(int)(data->ray.posx \
+		- data->ray.dirx * data->ray.move)] != '1')
+			data->ray.posx -= data->ray.dirx * data->ray.move;
+		if (data->map->array[(int)(data->ray.posy \
+		- data->ray.diry * data->ray.move)][(int)(data->ray.posx)] != '1')
+			data->ray.posy -= data->ray.diry * data->ray.move;
+	}
+	return (0);
+}
+
 int	ft_key_press(int key, t_data *data)
 {
-	data->ray.movespeed = 0.08;
-	data->ray.rotspeed = 0.08;
+	data->ray.move = 0.08;
+	data->ray.rot = 0.08;
 	if (key == ESC)
 		ft_key_esc();
-	else if (key == W || key == UP)
-	{
-		if (data->map->array[(int)(data->ray.posx + data->ray.dirx \
-		* data->ray.movespeed)][(int)(data->ray.posy)] == '0')
-			data->ray.posx += data->ray.dirx * data->ray.movespeed;
-		if (data->map->array[(int)(data->ray.posx)][(int)(data->ray.posy \
-		+ data->ray.diry * data->ray.movespeed)] == '0')
-			data->ray.posy += data->ray.diry * data->ray.movespeed;
-	}
-	else if (key == S || key == DOWN)
-	{
-		if (data->map->array[(int)(data->ray.posx - data->ray.dirx \
-		* data->ray.movespeed)][(int)(data->ray.posy)] == '0')
-			data->ray.posx -= data->ray.dirx * data->ray.movespeed;
-		if (data->map->array[(int)(data->ray.posx)][(int)(data->ray.posy \
-		- data->ray.diry * data->ray.movespeed)] == '0')
-			data->ray.posy -= data->ray.diry * data->ray.movespeed;
-	}
-	else
-		ft_key_press_2(key, data->ray);
+	else if (key == W || key == S)
+		ft_move_uw(key, data);
+	else if (key == A || key == D)
+		ft_move_rl(key, data);
+	else if (key == LEFT || key == RIGHT)
+		ft_move_round(key, &data->ray);
 	return (0);
 }

@@ -6,12 +6,11 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:10:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/05 20:27:06 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/07 19:17:34 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 static int	ft_program_close(void)
 {

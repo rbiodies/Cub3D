@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/05 20:20:39 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/07 19:24:12 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include <stdio.h>	// printf
 
 /*****WINDOW_SIZES*****/
-# define TEXWIDTH	64
-# define TEXHIGHT	64
-# define WIN_WIDTH	640
-# define WIN_HEIGHT	480
+# define TEXWIDTH	512
+# define TEXHIGHT	512
+# define WIN_WIDTH	1920
+# define WIN_HEIGHT	1080
 
 /*****KEYS*****/
 # define ESC	53
@@ -32,20 +32,11 @@
 # define S		1
 # define A		0
 # define D		2
-# define UP		126
-# define DOWN	125
+// # define UP		126
+// # define DOWN	125
 # define LEFT	123
 # define RIGHT	124
 
-/*****STRUCTURES*****/
-/*
-	double	deltadistx;	// the distance the ray has to travel to go from 1 x-side to the next x-side
-	double	deltadisty;	// the distance the ray has to travel to go from 1 y-side to the next y-side
-	int		mapx;		// the current square of the map the ray is in (the coordinates of that square)
-	int		mapy;		// the current square of the map the ray is in (the coordinates of that square)
-	double	sidedistx;	// the distance the ray has to travel from its start position to the first x-side
-	double	sidedisty;	// the distance the ray has to travel from its start position to the first y-side
-*/
 typedef struct s_ray
 {
 	double	posx;
@@ -70,8 +61,8 @@ typedef struct s_ray
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
-	double	movespeed;
-	double	rotspeed;
+	double	move;
+	double	rot;
 	int		texnum;
 	double	wallx;
 	int		texx;
@@ -101,10 +92,19 @@ typedef struct s_img
 	char	*mlx_data_addr;
 }	t_img;
 
+typedef struct s_img1
+{
+	void	*img_ptr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+	int		*mlx_data_addr;
+}	t_img1;
+
 typedef struct s_map
 {
 	char	**texture_path;
-	t_img	*texture;
+	t_img1	*texture;
 	int		floor_color;
 	int		ceil_color;
 	int		height;
@@ -141,10 +141,16 @@ int		ft_key_press(int key, t_data *data);
 void	ft_init_backimg(t_data *data);
 void	ft_put_pix(t_data *data, int x, int y, int color);
 void	ft_draw_corf(t_data *data, int a, int b, int color);
-
 /*****ft_init_textures.c*****/
 void	ft_init_textures(t_map *map);
-/*****ft_init_ray.c*****/
+/*****ft_init_ray_and_tex.c*****/
 void	ft_init_ray(t_data *data);
+void	ft_init_textures(t_map *map);
+/*****ft_main_loop_2.c*****/
+void	ft_get_stripe_params(t_ray *ray);
+void	ft_get_texture_side(t_ray *ray);
+void	ft_define_wallx(t_ray *ray);
+void	ft_fill_verticals(t_data *data, t_ray *ray, t_map *map, int x);
+void	ft_distance_of_perpendicular_ray(t_ray *ray);
 
 #endif

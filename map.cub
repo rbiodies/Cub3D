@@ -1,7 +1,7 @@
-NO ./textures/watM_64.xpm
-SO ./textures/cry_64.xpm
-WE ./textures/watG_64.xpm
-EA ./textures/agreed_64.xpm
+NO ./textures/1.xpm
+SO ./textures/2.xpm
+WE ./textures/3.xpm
+EA ./textures/4.xpm
 
 F 220,100,0
 C 225,30,0

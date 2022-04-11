@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:00:30 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/07 19:14:41 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 16:40:23 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_fill_verticals(t_data *data, t_ray *ray, t_map *map, int x)
 		texy = (int)ray->texpos & (TEXHIGHT - 1);
 		data->ray.texpos += data->ray.step;
 		color = \
-		map->texture[ray->texnum].mlx_data_addr[TEXHIGHT * texy + ray->texx];
+		map->texture[ray->texnum].mlx_data_addr[TEXWIDTH * texy + ray->texx];
 		ft_put_pix(data, x, y, color);
 		y++;
 	}

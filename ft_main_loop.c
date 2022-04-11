@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:06:32 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/07 19:14:20 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 19:42:38 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ static void	ft_delta(t_ray *ray)
 	if (ray->raydirx != 0)
 		ray->deltadistx = sqrt(1 + (ray->raydiry * ray->raydiry) \
 		/ (ray->raydirx * ray->raydirx));
+	else
+		ray->deltadistx = 1e30;
 	if (ray->raydiry != 0)
 		ray->deltadisty = sqrt(1 + (ray->raydirx * ray->raydirx) \
 		/ (ray->raydiry * ray->raydiry));
+	else
+		ray->deltadisty = 1e30;
 }
 
 /* calculate step and initial sideDist */

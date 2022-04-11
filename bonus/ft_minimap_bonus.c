@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minimap.c                                       :+:      :+:    :+:   */
+/*   ft_minimap_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:08:29 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 18:10:59 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 20:18:12 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,34 @@ static  void	ft_draw_wall(t_data *data, int a, int b, int color)
 	}
 }
 
+int	ft_minimap_error(t_data *data)
+{
+	int	width;
+	int	i;
+	int	len;
+
+	i = 0;
+	width = 0;
+	if (data->map->height * 8 > WIN_HEIGHT)
+	{
+		printf("The map is too large\n");
+		return (1);
+	}
+	while (data->map->array[i] != NULL)
+	{
+		len = ft_strlen(data->map->array[i]);
+		if (width < len)
+			width = len;
+		i++;
+	}
+	if (width * 8 > WIN_WIDTH)
+	{
+		printf("The map is too large\n");
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_minimap(t_data *data)
 {
 	int	x;
@@ -72,11 +100,9 @@ void	ft_minimap(t_data *data)
 		{
 			if (data->map->array[y][x] == '1')
 				ft_draw_wall(data, x + 1, y + 1, 24);
-			else if (data->map->array[y][x] == 'N' || data->map->array[y][x] == 'S' ||\
-			data->map->array[y][x] == 'W' || data->map->array[y][x] == 'E')
-				ft_draw_player(data, x + 1, y + 1, 9172004);
 			x++;
 		}
 		y++;
 	}
+	ft_draw_player(data, (int)data->ray.posx + 1, (int)data->ray.posy + 1, 9172004);
 }

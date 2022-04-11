@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:19:48 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 18:22:48 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 20:19:52 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	ft_init_ray(t_data *data)
 {
 	ft_player_dir(data);
 	ft_plane_dir(data);
-	data->ray.posx = (double)data->player->x;
-	data->ray.posy = (double)data->player->y;
+	data->ray.posx = (double)data->player->x + 0.5;
+	data->ray.posy = (double)data->player->y + 0.5;
 }
 
 void	ft_init_textures(t_map *map)

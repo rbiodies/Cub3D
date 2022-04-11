@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main_loop_2.c                                   :+:      :+:    :+:   */
+/*   ft_main_loop_2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:00:30 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 16:40:23 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 19:41:14 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_define_wallx(t_ray *ray)
 		ray->wallx = ray->posx + ray->perpwalldist * ray->dirx;
 	ray->wallx -= floor(ray->wallx);
 	ray->texx = (int)(ray->wallx * (double)TEXWIDTH);
-	if (ray->side == 0 && ray->dirx > 0)
+	if (ray->side == 0 && ray->raydirx > 0)
 		ray->texx = TEXWIDTH - ray->texx - 1;
 	if (ray->side == 1 && ray->raydiry < 0)
 		ray->texx = TEXWIDTH - ray->texx - 1;

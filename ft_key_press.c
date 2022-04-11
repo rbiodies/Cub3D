@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 12:40:17 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/07 19:09:33 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 15:09:39 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ void	ft_move_round(int key, t_ray *ray)
 	oldplanex = ray->planex;
 	if (key == LEFT)
 	{
-		ray->dirx = ray->dirx * cos(ray->rot) - ray->diry * sin(ray->rot);
-		ray->diry = olddirx * sin(ray->rot) + ray->diry * cos(ray->rot);
-		ray->planex \
-		= ray->planex * cos(ray->rot) - ray->planey * sin(ray->rot);
-		ray->planey \
-		= oldplanex * sin(ray->rot) + ray->planey * cos(ray->rot);
-	}
-	else if (key == RIGHT)
-	{
 		ray->dirx \
 		= ray->dirx * cos(-ray->rot) - ray->diry * sin(-ray->rot);
 		ray->diry = olddirx * sin(-ray->rot) + ray->diry * cos(-ray->rot);
@@ -43,6 +34,15 @@ void	ft_move_round(int key, t_ray *ray)
 		= ray->planex * cos(-ray->rot) - ray->planey * sin(-ray->rot);
 		ray->planey \
 		= oldplanex * sin(-ray->rot) + ray->planey * cos(-ray->rot);
+	}
+	else if (key == RIGHT)
+	{
+		ray->dirx = ray->dirx * cos(ray->rot) - ray->diry * sin(ray->rot);
+		ray->diry = olddirx * sin(ray->rot) + ray->diry * cos(ray->rot);
+		ray->planex \
+		= ray->planex * cos(ray->rot) - ray->planey * sin(ray->rot);
+		ray->planey \
+		= oldplanex * sin(ray->rot) + ray->planey * cos(ray->rot);	
 	}
 }
 
@@ -55,7 +55,7 @@ int	ft_move_rl(int key, t_data *data)
 			data->ray.posx -= data->ray.planex * data->ray.move;
 		if (data->map->array[(int)(data->ray.posy \
 		+ data->ray.planey * data->ray.move)][(int)(data->ray.posx)] != '1')
-			data->ray.posy += data->ray.planey * data->ray.move;
+			data->ray.posy -= data->ray.planey * data->ray.move;
 	}
 	else if (key == D)
 	{
@@ -95,7 +95,7 @@ int	ft_move_uw(int key, t_data *data)
 int	ft_key_press(int key, t_data *data)
 {
 	data->ray.move = 0.08;
-	data->ray.rot = 0.08;
+	data->ray.rot = 0.04;
 	if (key == ESC)
 		ft_key_esc();
 	else if (key == W || key == S)

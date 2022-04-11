@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:19:48 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/07 19:17:48 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/11 18:22:48 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_init_textures(t_map *map)
 	{
 		map->texture[i].img_ptr = \
 		mlx_xpm_file_to_image(map->mlx, map->texture_path[i], &width, &height);
-		if (height == 0 || width == 0)
+		if (height <= 0 || width <= 0)
 			ft_putendl_error("Could not convert xpm file to image");
 		map->texture[i].mlx_data_addr = (int *)mlx_get_data_addr(\
 		map->texture[i].img_ptr, &map->texture[i].bits_per_pixel, \

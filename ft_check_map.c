@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:02:56 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/03 16:22:42 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/12 17:20:45 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_check_textures(char **path)
 	int	fd;
 
 	i = 0;
-	while (path[i] != NULL)
+	while (i < 4)
 	{
 		if (path[i] == NULL)
 			ft_putendl_error("Texture file is missing");
@@ -116,4 +116,5 @@ void	ft_check_map(t_data *data)
 	ft_check_symbols(data->map->array);
 	ft_check_player(data->map->array, data->player);
 	ft_check_walls(data->map->array, data->map->height);
+	ft_check_two_color(data->map);
 }

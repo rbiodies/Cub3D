@@ -41,7 +41,7 @@ CFLAGS	=	-Wall -Wextra -Werror ${HEADER}
 all:		${NAME}
 
 ${NAME}	:	${OBJ}
-			ar rcs ${NAME} $?
+			@ar rcs ${NAME} $?
 
 %.o : %.c	${HEADER}
 			${CC} ${CFALGS} -c $< -o $@
@@ -53,6 +53,6 @@ clean	:
 			@${RM} ${OBJ} ${OBJ_B}
 
 fclean	:	clean
-			${RM} ${NAME}
+			@${RM} ${NAME}
 
 re		:	fclean all

@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:00:30 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 19:40:54 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/12 18:28:58 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	ft_get_texture_side(t_ray *ray)
 		ray->texnum = 0;
 	else if (ray->side == 1 && ray->raydiry > 0)
 		ray->texnum = 1;
-	else if (ray->side == 0 && ray->raydirx > 0)
-		ray->texnum = 2;
 	else if (ray->side == 0 && ray->raydirx < 0)
+		ray->texnum = 2;
+	else if (ray->side == 0 && ray->raydirx > 0)
 		ray->texnum = 3;
 }
 
@@ -43,9 +43,9 @@ void	ft_get_texture_side(t_ray *ray)
 void	ft_define_wallx(t_ray *ray)
 {
 	if (ray->side == 0)
-		ray->wallx = ray->posy + ray->perpwalldist * ray->diry;
+		ray->wallx = ray->posy + ray->perpwalldist * ray->raydiry;
 	else
-		ray->wallx = ray->posx + ray->perpwalldist * ray->dirx;
+		ray->wallx = ray->posx + ray->perpwalldist * ray->raydirx;
 	ray->wallx -= floor(ray->wallx);
 	ray->texx = (int)(ray->wallx * (double)TEXWIDTH);
 	if (ray->side == 0 && ray->raydirx > 0)

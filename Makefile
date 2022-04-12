@@ -4,9 +4,13 @@ LIB_PATH	=	libft/
 
 LIB			=	${LIB_PATH}libft.a
 
-SRCS		=	${wildcard *.c}
+SRCS		=	ft_background.c ft_check_map.c ft_init_ray_and_tex.c ft_key_press.c ft_main_loop_2.c \
+				ft_main_loop.c ft_parsing_colors.c ft_parsing_map.c ft_start_game.c get_next_line.c \
+				main.c
 
-SRCS_BONUS	=	${wildcard bonus/*.c}
+SRCS_BONUS	=	ft_background.c ft_check_map.c ft_init_ray_and_tex.c ft_key_press.c ft_main_loop_2.c \
+				ft_main_loop.c ft_parsing_colors.c ft_parsing_map.c ft_start_game_bonus.c get_next_line.c \
+				main.c ft_minimap_bonus.c
 
 MLX_PATH	=	minilibx_opengl_20191021/
 
@@ -17,7 +21,7 @@ MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
 HEADER		=	-I include/
 OBJDIR		=	objects
 OBJS		=	${SRCS:%.c=${OBJDIR}/%.o}
-OBJS_BONUS	=	${SRCS_BONUS:%.c=%.o}
+OBJS_BONUS	=	${SRCS_BONUS:%.c=${OBJDIR}/%.o}
 
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra ${HEADER}
@@ -38,11 +42,11 @@ bonus		:
 				@make WITH_BONUS=1 all
 
 subsystem_mlx:	
-				@ # make -C ${MLX_PATH} all
+				@make -C ${MLX_PATH} all
 				@printf "\033[0;35m🍀 File '${MLX}' is done ! ✅\033[0m\n"
 
 subsystem	:
-				@ # make -C ${LIB_PATH} all
+				@make -C ${LIB_PATH} all
 				@printf "\033[0;33m🍀 File '${LIB}' is done ! ✅\033[0m\n"
 
 ${NAME}		:	${OBJS_FILES}
@@ -56,13 +60,13 @@ ${OBJDIR}/%.o:	%.c | ${OBJDIR}
 				@${CC} ${CFLAGS} ${HEADER} -c $< -o $@
 
 clean		:
-				@ # make -C ${MLX_PATH} clean
+				@make -C ${MLX_PATH} clean
 				@make -C ${LIB_PATH} clean
-				@${RM} ${OBJS_BONUS} ${OBJDIR}
+				@${RM} ${OBJDIR}
 				@printf "\033[0;34m👻 Files '${MLX}' and '${OBJS_FILES}' are deleted ! 🗑️\033[0m\n"
 
 fclean		:	clean
-				@ # make -C ${LIB_PATH} fclean
+				@make -C ${LIB_PATH} fclean
 				@${RM} ${NAME}
 				@printf "\033[0;31m💬 Files '${LIB}' and '${NAME}' is deleted ! 🗑️\033[0m\n"
 

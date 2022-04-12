@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_colors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbiodies <rbiodies@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:51:16 by rbiodies          #+#    #+#             */
-/*   Updated: 2022/04/02 18:24:32 by rbiodies         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:20:11 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	ft_check_two_color(t_map *map)
+{
+	if (map->ceil_color == -1 || map->ceil_color == -1)
+		ft_putendl_error("Color is missing");
+}
 
 static int	ft_natoi(const char *str, int len)
 {

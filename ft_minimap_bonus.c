@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:08:29 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 20:18:12 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/12 17:53:58 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_minimap_error(t_data *data)
 	width = 0;
 	if (data->map->height * 8 > WIN_HEIGHT)
 	{
-		printf("The map is too large\n");
+		printf("The minimap is too large\n");
 		return (1);
 	}
 	while (data->map->array[i] != NULL)
@@ -81,7 +81,7 @@ int	ft_minimap_error(t_data *data)
 	}
 	if (width * 8 > WIN_WIDTH)
 	{
-		printf("The map is too large\n");
+		printf("The minimap is too large\n");
 		return (1);
 	}
 	return (0);

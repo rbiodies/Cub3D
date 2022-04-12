@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:19:48 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 20:19:52 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/12 18:20:21 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void	ft_player_dir(t_data *data)
 	}
 	else if (data->player->dir == 'W')
 	{
-		data->ray.dirx = 1;
+		data->ray.dirx = -1;
 		data->ray.diry = 0;
 	}
 	else if (data->player->dir == 'E')
 	{
-		data->ray.dirx = -1;
+		data->ray.dirx = 1;
 		data->ray.diry = 0;
 	}
 }

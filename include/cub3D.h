@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 18:21:06 by maxim             #+#    #+#             */
-/*   Updated: 2022/04/11 18:22:37 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/12 17:37:34 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@
 // # define DOWN	125
 # define LEFT	123
 # define RIGHT	124
+
+/*
+camerax - координата x в пространстве камеры
+*/
 
 typedef struct s_ray
 {
@@ -111,6 +115,7 @@ typedef struct s_map
 	char	**array;
 	void	*mlx;
 	void	*win;
+	int		size;
 }	t_map;
 
 typedef struct s_data
@@ -128,6 +133,7 @@ void	ft_putendl_error(char *str);
 void	ft_parsing_map(t_data *data, char *filename);
 int		get_next_line(int fd, char **line);
 /*****ft_parse_colors.c*****/
+void	ft_check_two_color(t_map *map);
 int		ft_parsing_colors(t_map *map, char *line);
 /*****ft_check.c*****/
 void	ft_check_map(t_data *data);
@@ -154,4 +160,5 @@ void	ft_fill_verticals(t_data *data, t_ray *ray, t_map *map, int x);
 void	ft_distance_of_perpendicular_ray(t_ray *ray);
 
 void	ft_minimap(t_data *data);
+int		ft_minimap_error(t_data *data);
 #endif

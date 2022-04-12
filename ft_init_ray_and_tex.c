@@ -6,7 +6,7 @@
 /*   By: bjeana <bjeana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:19:48 by bjeana            #+#    #+#             */
-/*   Updated: 2022/04/11 18:22:48 by bjeana           ###   ########.fr       */
+/*   Updated: 2022/04/12 18:20:21 by bjeana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void	ft_player_dir(t_data *data)
 	}
 	else if (data->player->dir == 'W')
 	{
-		data->ray.dirx = 1;
+		data->ray.dirx = -1;
 		data->ray.diry = 0;
 	}
 	else if (data->player->dir == 'E')
 	{
-		data->ray.dirx = -1;
+		data->ray.dirx = 1;
 		data->ray.diry = 0;
 	}
 }
@@ -64,8 +64,8 @@ void	ft_init_ray(t_data *data)
 {
 	ft_player_dir(data);
 	ft_plane_dir(data);
-	data->ray.posx = (double)data->player->x;
-	data->ray.posy = (double)data->player->y;
+	data->ray.posx = (double)data->player->x + 0.5;
+	data->ray.posy = (double)data->player->y + 0.5;
 }
 
 void	ft_init_textures(t_map *map)

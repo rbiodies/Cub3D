@@ -6,6 +6,7 @@ Raycasting is a rendering technique to create a 3D perspective in a 2D map. Back
 ### Wolfenstein 3D
 This project is inspired by the world-famous [Wolfenstein 3D](http://users.atw.hu/wolf3d/) game, which
 was the first FPS ever.
+
 ![image](https://user-images.githubusercontent.com/90090114/163553576-58948d1c-941c-42ff-8f98-3f3fe4a3deed.png)
 ### MiniLibX
 MiniLibX is a tiny graphics library which allows you to do the most basic things for rendering something in screens without any knowledge of X-Window and Cocoa. It provides so-called simple window creation, a questionable drawing tool, half-ass image functions and a weird event management system.

@@ -5,18 +5,18 @@ LIB_PATH	=	libft/
 LIB			=	${LIB_PATH}libft.a
 
 SRCS		=	ft_background.c ft_check_map.c ft_init_ray_and_tex.c ft_key_press.c ft_main_loop_2.c \
-				ft_main_loop.c ft_parsing_colors.c ft_parsing_map.c ft_start_game.c get_next_line.c \
-				main.c
+				ft_main_loop.c ft_parsing_colors.c ft_parsing_map.c get_next_line.c main.c \
+				ft_start_game.c
 
 SRCS_BONUS	=	ft_background.c ft_check_map.c ft_init_ray_and_tex.c ft_key_press.c ft_main_loop_2.c \
-				ft_main_loop.c ft_parsing_colors.c ft_parsing_map.c ft_start_game_bonus.c get_next_line.c \
-				main.c ft_minimap_bonus.c
+				ft_main_loop.c ft_parsing_colors.c ft_parsing_map.c get_next_line.c main.c \
+				ft_start_game_bonus.c ft_minimap_bonus.c
 
 MLX_PATH	=	minilibx_opengl_20191021/
 
 MLX			=	${MLX_PATH}libmlx.a
 
-MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
+MLXFLAGS	=	-L ${MLX_PATH} -lmlx -framework OpenGL -framework AppKit
 
 HEADER		=	-I include/
 OBJDIR		=	objects
